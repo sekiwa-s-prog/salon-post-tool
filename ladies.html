@@ -1,373 +1,303 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>AI TOKYO hair SEO作成ツール</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0f0f0f;
-      --card: #1e1e1e;
-      --accent: #c97a9a;
-      --accent-light: #e0a8c0;
-      --white: #f8f0f4;
-      --gray: #888;
-      --border: #2a2a2a;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Noto Sans JP', sans-serif;
-      min-height: 100vh;
-      padding: 0 0 60px;
-    }
-
-    .header {
-      background: linear-gradient(135deg, #1a0d14 0%, #0f0f0f 100%);
-      border-bottom: 1px solid #2d1e26;
-      padding: 16px 20px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 13px;
-      margin-bottom: 10px;
-      opacity: 0.8;
-    }
-
-    .header-title { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
-    .header-sub { font-size: 11px; color: var(--gray); margin-top: 2px; }
-
-    .main { padding: 20px 16px; max-width: 500px; margin: 0 auto; }
-
-    .section {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      margin-bottom: 16px;
-      overflow: hidden;
-    }
-
-    .section-title {
-      padding: 14px 16px 10px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .section-body { padding: 14px 16px; }
-
-    .tag-group { display: flex; flex-wrap: wrap; gap: 8px; }
-
-    .tag-label { display: flex; align-items: center; cursor: pointer; }
-    .tag-label input { display: none; }
-
-    .tag-btn {
-      padding: 7px 14px;
-      border-radius: 100px;
-      border: 1px solid var(--border);
-      font-size: 12px;
-      color: var(--gray);
-      background: #161616;
-      transition: all 0.2s;
-      user-select: none;
-    }
-
-    .tag-label input:checked + .tag-btn {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-      font-weight: 700;
-    }
-
-    .input-field {
-      width: 100%;
-      background: #161616;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      color: var(--white);
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .input-field:focus { border-color: var(--accent); }
-    .input-field::placeholder { color: #444; }
-
-    .input-label { font-size: 11px; color: var(--gray); margin-bottom: 8px; letter-spacing: 1px; }
-    .input-group { margin-bottom: 14px; }
-    .input-group:last-child { margin-bottom: 0; }
-
-    .generate-btn {
-      width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, var(--accent) 0%, #a0567a 100%);
-      border: none;
-      border-radius: 14px;
-      color: #fff;
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      cursor: pointer;
-      margin-bottom: 16px;
-      transition: opacity 0.2s, transform 0.1s;
-    }
-
-    .generate-btn:active { opacity: 0.8; transform: scale(0.98); }
-
-    .result-area {
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .result-area.show { display: block; }
-
-    .result-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .result-title { font-size: 12px; color: var(--accent); font-weight: 700; letter-spacing: 2px; }
-
-    .copy-btn {
-      background: #2a2a2a;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--white);
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 12px;
-      padding: 6px 14px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .copy-btn.copied { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-    .result-text {
-      padding: 16px;
-      font-size: 14px;
-      line-height: 1.9;
-      white-space: pre-wrap;
-      color: var(--white);
-    }
-
-    .loading { display: none; text-align: center; padding: 30px; color: var(--gray); font-size: 13px; }
-    .loading.show { display: block; }
-
-    .spinner {
-      width: 28px;
-      height: 28px;
-      border: 2px solid #333;
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 12px;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="HPB SEO" />
+<title>HPB SEO Helper - AITOKYO HAIR</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E✨%3C/text%3E%3C/svg%3E" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: "Hiragino Sans", "Noto Sans JP", -apple-system, sans-serif; margin: 0; -webkit-font-smoothing: antialiased; }
+  textarea { font-family: inherit; }
+  html, body { overscroll-behavior-y: contain; }
+</style>
 </head>
-<body>
-  <div class="header">
-    <a href="index.html" class="back-btn">← もどる</a>
-    <div class="header-title">AI TOKYO hair</div>
-    <div class="header-sub">Ladies' Styling — SEO Post Generator</div>
-  </div>
+<body class="bg-stone-50">
+<div id="app"></div>
+<script>
+const wordBank = {
+  "🔥AITOKYO実績": [
+    "ウルフボブ", "ウルフカット", "レイヤーボブ", "レイヤー"
+  ],
+  "エリア": ["渋谷", "渋谷美容室", "名古屋", "名古屋美容室"],
+  "カット系(2026春トレンド)": [
+    "レイヤー", "レイヤーボブ", "ハッシュカット",
+    "くびれレイヤーボブ", "顔まわりレイヤー", "ハッシュレイヤー",
+    "結べるレイヤーカット", "ワンホンレイヤー", "韓国風レイヤー",
+    "丸みショートボブ", "切りっぱなしボブ", "ナチュラルロング",
+    "姫カット", "姫カットレイヤー", "エフォートレスレイヤー",
+    "クラゲウルフ", "ウルフカット", "ハンサムショートウルフ"
+  ],
+  "カラー系(2026春トレンド)": [
+    "ミルクティーブロンド", "ミルクティーベージュ", "暗髪",
+    "ほっこりカラー", "シアーグレージュ", "ラテグレージュ",
+    "ミルクグレージュ", "ミルクティーピンクベージュ",
+    "ダークラベンダー", "グレージュブラウン",
+    "インナーカラー", "ハイライト", "白髪ぼかし",
+    "ブリーチ", "ダブルカラー", "アンブレラカラー",
+    "逆アンブレラカラー", "ナチュラルブラウン"
+  ],
+  "パーマ系": [
+    "デジタルパーマ", "コテ巻き風パーマ", "韓国巻き", "あみたらし",
+    "波巻きパーマ", "ナチュラルパーマ", "ゆるふわパーマ",
+    "エアリーパーマ"
+  ],
+  "ケア系": [
+    "髪質改善", "酸性ストレート", "縮毛矯正", "トリートメント",
+    "髪質改善トリートメント", "サラツヤ髪", "ツヤ髪"
+  ],
+  "テイスト": [
+    "ナチュラル", "エフォートレス", "韓国風", "韓国ヘア",
+    "大人可愛い", "大人ナチュラル", "モテ髪", "小顔ヘア",
+    "小顔カット"
+  ]
+};
 
-  <div class="main">
+const limits = { styleName: 30, comment: 120, menu: 50, hashtags: 20 };
 
-    <!-- メニュー -->
-    <div class="section">
-      <div class="section-title">施術メニュー</div>
-      <div class="section-body">
-        <div class="tag-group">
-          <label class="tag-label"><input type="checkbox" name="menu" value="カット"><span class="tag-btn">カット</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="カラー"><span class="tag-btn">カラー</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="ハイライト"><span class="tag-btn">ハイライト</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="バレイヤージュ"><span class="tag-btn">バレイヤージュ</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="グラデーションカラー"><span class="tag-btn">グラデーション</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="白髪染め"><span class="tag-btn">白髪染め</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="パーマ"><span class="tag-btn">パーマ</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="デジタルパーマ"><span class="tag-btn">デジタルパーマ</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="縮毛矯正"><span class="tag-btn">縮毛矯正</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="トリートメント"><span class="tag-btn">トリートメント</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="ヘッドスパ"><span class="tag-btn">ヘッドスパ</span></label>
-          <label class="tag-label"><input type="checkbox" name="menu" value="まつ毛パーマ"><span class="tag-btn">まつ毛パーマ</span></label>
+const templates = {
+  styleName: [
+    "ミルクティーブロンド/ダークブルー/デジタルパーマ/",
+    "ワンホンレイヤー/ミルクティーブロンド/ダークブルー/"
+  ],
+  comment: "くびれレイヤーボブ あみたらし ハンサムショートウルフ 逆アンブレラカラー くびれレイヤー 韓国巻き ハッシュレイヤー ダークラベンダー グレージュブラウン 結べるレイヤーカット ラテグレージュ ミルクグレージュ ミルクティーピンクベージュ"
+};
+
+function applyTemplate(type, index) {
+  if (type === "styleName") state.styleName = templates.styleName[index].slice(0, limits.styleName);
+  else if (type === "comment") state.comment = templates.comment.slice(0, limits.comment);
+  render();
+}
+
+const state = {
+  styleName: "", comment: "", menu: "",
+  hashtags: [], activeField: "styleName", copiedField: null
+};
+
+function addWord(word) {
+  if (state.activeField === "hashtags") {
+    if (state.hashtags.length >= limits.hashtags) return;
+    if (state.hashtags.includes(word)) return;
+    state.hashtags.push(word);
+    render(); return;
+  }
+  const sep = state.activeField === "styleName" ? "/" : " ";
+  const cur = state[state.activeField];
+  const next = cur ? cur + sep + word : word;
+  if (next.length > limits[state.activeField]) return;
+  state[state.activeField] = next;
+  render();
+}
+
+function removeHashtag(tag) {
+  state.hashtags = state.hashtags.filter(t => t !== tag);
+  render();
+}
+
+function setActiveField(field) { state.activeField = field; render(); }
+
+function updateInput(value) {
+  if (value.length > limits[state.activeField]) return;
+  state[state.activeField] = value;
+  render();
+}
+
+function copyToClipboard(text, fieldName) {
+  if (!text) return;
+  const fallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch(e) {}
+    document.body.removeChild(ta);
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).catch(fallback);
+  } else { fallback(); }
+  state.copiedField = fieldName; render();
+  setTimeout(() => { state.copiedField = null; render(); }, 1500);
+}
+
+function copyAll() {
+  const parts = [];
+  if (state.styleName) parts.push("■スタイル名\n" + state.styleName);
+  if (state.comment) parts.push("■コメント\n" + state.comment);
+  if (state.menu) parts.push("■メニュー内容\n" + state.menu);
+  if (state.hashtags.length > 0) parts.push("■ハッシュタグ\n" + state.hashtags.map(t => "#" + t).join(" "));
+  copyToClipboard(parts.join("\n\n"), "all");
+}
+
+function resetAll() {
+  if (confirm("全ての入力をリセットしますか？")) {
+    state.styleName = ""; state.comment = ""; state.menu = "";
+    state.hashtags = []; render();
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+const fieldConfig = {
+  styleName: { label: "スタイル名", icon: "①" },
+  comment:   { label: "コメント",   icon: "②" },
+  menu:      { label: "メニュー内容", icon: "③" },
+  hashtags:  { label: "ハッシュタグ", icon: "④" }
+};
+
+function render() {
+  const af = state.activeField;
+  const cur = af === "hashtags" ? state.hashtags.length : state[af].length;
+  const lim = limits[af];
+
+  const tabsHtml = Object.keys(fieldConfig).map(key => {
+    const isActive = af === key;
+    return `
+      <button onclick="setActiveField('${key}')"
+        class="py-2.5 px-1 rounded-lg text-xs font-bold transition-all ${isActive ? 'bg-stone-900 text-white shadow-md' : 'bg-white text-stone-600 border border-stone-200'}">
+        <div class="text-base mb-0.5">${fieldConfig[key].icon}</div>
+        <div class="leading-tight">${fieldConfig[key].label}</div>
+      </button>`;
+  }).join("");
+
+  let activeAreaHtml = "";
+  if (af === "hashtags") {
+    activeAreaHtml = state.hashtags.length === 0
+      ? `<p class="text-stone-400 text-sm py-8 text-center">下のワードをタップして追加</p>`
+      : `<div class="flex flex-wrap gap-2">${state.hashtags.map(tag => `
+          <button onclick="removeHashtag('${escapeHtml(tag)}')"
+            class="inline-flex items-center gap-1 px-3 py-1.5 bg-stone-100 hover:bg-rose-100 text-stone-800 hover:text-rose-700 rounded-full text-sm font-medium transition-colors">
+            <span class="text-stone-400">#</span>${escapeHtml(tag)}
+            <span class="ml-0.5 text-xs opacity-50">×</span>
+          </button>`).join("")}</div>`;
+  } else {
+    const val = state[af];
+    const placeholder = af === "styleName" ? "例：ワンホンレイヤー/ミルクティーブロンド/..."
+      : af === "comment" ? "例：渋谷/くびれレイヤーボブ あみたらし..."
+      : "例：渋谷/丸みショートボブ コテ巻き風パーマ...";
+    activeAreaHtml = `
+      <textarea oninput="updateInput(this.value)" placeholder="${placeholder}"
+        class="w-full min-h-[100px] resize-none text-stone-900 placeholder-stone-300 focus:outline-none text-sm leading-relaxed">${escapeHtml(val)}</textarea>`;
+  }
+
+  // テンプレートボタン
+  let templateHtml = "";
+  if (af === "styleName") {
+    templateHtml = `
+      <div class="mb-3 space-y-1.5">
+        <p class="text-xs text-stone-500 font-bold">📋 テンプレ（タップで挿入）</p>
+        <button onclick="applyTemplate('styleName', 0)"
+          class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
+          ①ミルクティーブロンド/ダークブルー/デジタルパーマ/○○
+        </button>
+        <button onclick="applyTemplate('styleName', 1)"
+          class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
+          ②ワンホンレイヤー/ミルクティーブロンド/ダークブルー/○○
+        </button>
+        <p class="text-[10px] text-stone-400">※○○にエリア名を入力してください</p>
+      </div>`;
+  } else if (af === "comment") {
+    templateHtml = `
+      <div class="mb-3">
+        <p class="text-xs text-stone-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
+        <button onclick="applyTemplate('comment')"
+          class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
+          くびれレイヤーボブ あみたらし ハンサムショートウルフ 逆アンブレラカラー...（120文字テンプレ）
+        </button>
+      </div>`;
+  }
+
+  const wordsHtml = Object.keys(wordBank).map(category => `
+    <div class="bg-white rounded-xl p-3 border border-stone-200">
+      <h3 class="text-xs font-bold text-stone-900 mb-2 px-1 flex items-center gap-1.5">
+        <span class="w-1 h-3 bg-stone-900 rounded-full"></span>${category}
+      </h3>
+      <div class="flex flex-wrap gap-1.5">
+        ${wordBank[category].map(w => {
+          const used = af === "hashtags" && state.hashtags.includes(w);
+          return `
+            <button onclick="addWord('${escapeHtml(w)}')" ${used ? 'disabled' : ''}
+              class="px-3 py-1.5 rounded-full text-xs font-medium transition-all active:scale-95 ${used ? 'bg-stone-100 text-stone-300 cursor-not-allowed' : 'bg-stone-50 hover:bg-stone-900 hover:text-white text-stone-700 border border-stone-200'}">
+              ${used ? '✓ ' : ''}${escapeHtml(w)}
+            </button>`;
+        }).join("")}
+      </div>
+    </div>`).join("");
+
+  const hasAny = state.styleName || state.comment || state.menu || state.hashtags.length > 0;
+  const allHtml = hasAny ? `
+    <div class="bg-gradient-to-br from-amber-50 to-rose-50 rounded-xl p-4 border border-amber-200 mt-6">
+      <h3 class="text-xs font-bold text-stone-900 mb-3">✨ 全部まとめてコピー</h3>
+      <button onclick="copyAll()"
+        class="w-full py-3 bg-white text-stone-900 text-sm font-bold rounded-lg border-2 border-stone-900 active:scale-[0.99] transition-all">
+        ${state.copiedField === 'all' ? '✓ 全項目コピー完了！' : '📋 全項目をまとめてコピー'}
+      </button>
+    </div>` : "";
+
+  const canCopy = (af === "hashtags" && state.hashtags.length > 0) || (af !== "hashtags" && state[af]);
+  const isCopying = state.copiedField === af;
+  const copyText = af === "hashtags" ? state.hashtags.join('\n') : state[af];
+
+  document.getElementById("app").innerHTML = `
+    <div class="min-h-screen">
+      <div class="sticky top-0 z-20 bg-white border-b-2 border-stone-900">
+        <div class="px-5 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-base">✨</span>
+              <h1 class="text-lg font-black tracking-tight text-stone-900">HPB SEO HELPER</h1>
+            </div>
+            <button onclick="resetAll()" class="text-stone-500 text-xs underline">リセット</button>
+          </div>
+          <p class="text-xs text-stone-500 mt-1 font-medium">タップで追加 → コピーで完了</p>
         </div>
       </div>
-    </div>
 
-    <!-- スタイル・雰囲気 -->
-    <div class="section">
-      <div class="section-title">スタイル・雰囲気</div>
-      <div class="section-body">
-        <div class="tag-group">
-          <label class="tag-label"><input type="checkbox" name="style" value="ナチュラル"><span class="tag-btn">ナチュラル</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="大人かわいい"><span class="tag-btn">大人かわいい</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="韓国風"><span class="tag-btn">韓国風</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="ガーリー"><span class="tag-btn">ガーリー</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="大人上品"><span class="tag-btn">大人上品</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="透明感"><span class="tag-btn">透明感</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="ツヤツヤ"><span class="tag-btn">ツヤ</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="ふんわり"><span class="tag-btn">ふんわり</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="モード"><span class="tag-btn">モード</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="ボブ"><span class="tag-btn">ボブ</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="ロング"><span class="tag-btn">ロング</span></label>
-          <label class="tag-label"><input type="checkbox" name="style" value="ショート"><span class="tag-btn">ショート</span></label>
+      <div class="px-4 py-5 space-y-4 pb-32">
+        <div class="grid grid-cols-4 gap-1.5">${tabsHtml}</div>
+
+        <div class="bg-white rounded-2xl border-2 border-stone-900 overflow-hidden shadow-sm">
+          <div class="px-4 py-3 bg-stone-900 text-white flex items-center justify-between">
+            <span class="text-sm font-bold">${fieldConfig[af].label}</span>
+            <span class="text-sm font-mono font-bold ${cur >= lim ? 'text-rose-300' : 'text-white'}">
+              ${cur}<span class="text-stone-400 font-normal">/${lim}</span>
+            </span>
+          </div>
+          <div class="p-4">
+            ${templateHtml}
+            ${activeAreaHtml}
+          </div>
+          <button onclick="copyToClipboard('${escapeHtml(copyText)}', '${af}')"
+            ${!canCopy ? 'disabled' : ''}
+            class="w-full py-3.5 ${canCopy ? 'bg-stone-900' : 'bg-stone-300'} text-white text-sm font-bold transition-all active:scale-[0.99]">
+            ${isCopying ? '✓ コピー完了！' : '📋 コピーする'}
+          </button>
         </div>
-      </div>
-    </div>
 
-    <!-- 地域・お店 -->
-    <div class="section">
-      <div class="section-title">地域・お店情報</div>
-      <div class="section-body">
-        <div class="input-group">
-          <div class="input-label">地域名（例：表参道、銀座）</div>
-          <input type="text" class="input-field" id="area" placeholder="例：表参道">
+        <div class="space-y-3">
+          <h2 class="text-xs font-bold text-stone-500 px-1 tracking-wider uppercase">タップで追加</h2>
+          ${wordsHtml}
         </div>
-        <div class="input-group">
-          <div class="input-label">お店の名前（任意）</div>
-          <input type="text" class="input-field" id="shop" placeholder="例：Hair Salon ○○">
-        </div>
+
+        ${allHtml}
+
+        <details class="bg-white rounded-xl p-4 border border-stone-200 mt-4">
+          <summary class="text-xs font-bold text-stone-700 cursor-pointer">💡 使い方</summary>
+          <div class="mt-3 space-y-2 text-xs text-stone-600 leading-relaxed">
+            <p>1. 上のタブで入力したい項目を選ぶ（①〜④）</p>
+            <p>2. 下のワードリストからタップして追加</p>
+            <p>3. 直接入力もOK</p>
+            <p>4. 「コピーする」ボタンを押す</p>
+            <p>5. サロンボードの該当欄に貼り付け</p>
+          </div>
+        </details>
       </div>
-    </div>
+    </div>`;
+}
 
-    <!-- 投稿先 -->
-    <div class="section">
-      <div class="section-title">投稿先 SNS</div>
-      <div class="section-body">
-        <div class="tag-group">
-          <label class="tag-label"><input type="radio" name="sns" value="Instagram" checked><span class="tag-btn">Instagram</span></label>
-          <label class="tag-label"><input type="radio" name="sns" value="TikTok"><span class="tag-btn">TikTok</span></label>
-          <label class="tag-label"><input type="radio" name="sns" value="X（旧Twitter）"><span class="tag-btn">X</span></label>
-          <label class="tag-label"><input type="radio" name="sns" value="Threads"><span class="tag-btn">Threads</span></label>
-        </div>
-      </div>
-    </div>
-
-    <!-- 補足 -->
-    <div class="section">
-      <div class="section-title">補足・こだわり（任意）</div>
-      <div class="section-body">
-        <textarea class="input-field" id="extra" rows="3" placeholder="例：産後の方向け、40代向け、ダメージ毛の方に安心 など"></textarea>
-      </div>
-    </div>
-
-    <button class="generate-btn" onclick="generate()">投稿文を生成する</button>
-
-    <div class="loading" id="loading">
-      <div class="spinner"></div>
-      AIが投稿文を作成中...
-    </div>
-
-    <div class="result-area" id="result">
-      <div class="result-header">
-        <span class="result-title">生成された投稿文</span>
-        <button class="copy-btn" id="copyBtn" onclick="copyText()">コピー</button>
-      </div>
-      <div class="result-text" id="result-text"></div>
-    </div>
-  </div>
-
-  <script>
-    async function generate() {
-      const menus = [...document.querySelectorAll('input[name="menu"]:checked')].map(el => el.value);
-      const styles = [...document.querySelectorAll('input[name="style"]:checked')].map(el => el.value);
-      const sns = document.querySelector('input[name="sns"]:checked')?.value || 'Instagram';
-      const area = document.getElementById('area').value.trim();
-      const shop = document.getElementById('shop').value.trim();
-      const extra = document.getElementById('extra').value.trim();
-
-      if (menus.length === 0) {
-        alert('施術メニューを1つ以上選んでください');
-        return;
-      }
-
-      document.getElementById('loading').classList.add('show');
-      document.getElementById('result').classList.remove('show');
-
-      const prompt = `あなたは美容室のSNSマーケティングの専門家です。以下の条件で${sns}用のSNS投稿文を作成してください。
-
-【条件】
-・施術メニュー：${menus.join('、')}
-・スタイル・雰囲気：${styles.length > 0 ? styles.join('、') : '指定なし'}
-・地域：${area || '未指定'}
-・お店名：${shop || '未指定'}
-・補足：${extra || 'なし'}
-
-【要件】
-・${sns}に最適な文体・長さで
-・SEOに効果的なハッシュタグを10〜15個含める（地域名・メニュー名・スタイル名を含める）
-・女性のお客様への語りかけがある温かみのある文章
-・絵文字を適度に使用
-・予約を促すCTAを含める
-・日本語で作成
-
-投稿文のみ出力してください（説明不要）`;
-
-      try {
-        const response = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
-            messages: [{ role: 'user', content: prompt }]
-          })
-        });
-
-        const data = await response.json();
-        const text = data.content?.[0]?.text || 'エラーが発生しました';
-
-        document.getElementById('result-text').textContent = text;
-        document.getElementById('result').classList.add('show');
-        document.getElementById('copyBtn').textContent = 'コピー';
-        document.getElementById('copyBtn').classList.remove('copied');
-        document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      } catch (e) {
-        alert('エラーが発生しました。もう一度お試しください。');
-      } finally {
-        document.getElementById('loading').classList.remove('show');
-      }
-    }
-
-    async function copyText() {
-      const text = document.getElementById('result-text').textContent;
-      await navigator.clipboard.writeText(text);
-      const btn = document.getElementById('copyBtn');
-      btn.textContent = 'コピー完了！';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'コピー';
-        btn.classList.remove('copied');
-      }, 2000);
-    }
-  </script>
+render();
+</script>
 </body>
 </html>
