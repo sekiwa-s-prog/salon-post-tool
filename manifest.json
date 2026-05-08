@@ -1,0 +1,22 @@
+{
+  "name": "AI TOKYO group SEO作成ツール",
+  "short_name": "AI TOKYO",
+  "description": "美容室スタッフ向けSNS投稿文生成ツール",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/2702.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/2702.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

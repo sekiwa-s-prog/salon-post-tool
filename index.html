@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SNS投稿ツール">
+  <link rel="manifest" href="manifest.json">
+  <title>AI TOKYO group　SEO作成ツール</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --surface: #1a1a1a;
+      --card: #222222;
+      --gold: #c9a96e;
+      --gold-light: #e8c99a;
+      --white: #f5f0eb;
+      --gray: #888;
+      --border: #333;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Noto Sans JP', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 60% 30%, rgba(201,169,110,0.07) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(201,169,110,0.04) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .logo-area {
+      margin-bottom: 40px;
+      animation: fadeDown 0.8s ease both;
+    }
+
+    .logo-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .logo-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 20px auto;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      display: block;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.6s ease both;
+      text-align: left;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.35s; }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,169,110,0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:active::before { opacity: 1; }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .card-emoji {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .card-label {
+      font-size: 11px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    .card-arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      font-size: 18px;
+      opacity: 0.6;
+    }
+
+    .card-mens { border-color: #2a2a3a; }
+    .card-ladies { border-color: #2a2a2a; }
+
+    .footer {
+      font-size: 10px;
+      color: #444;
+      letter-spacing: 1px;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-area">
+      <div class="logo-title">AI TOKYO group</div>
+      <div class="logo-sub">SEO 作成ツール</div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="cards">
+      <a href="mens.html" class="card card-mens">
+        <div class="card-header">
+          <div>
+            <div class="card-label">Men's</div>
+            <div class="card-title">AI TOKYO -MEN-</div>
+          </div>
+        </div>
+        <div class="card-desc">メンズカット・スタイリングの投稿文を作成</div>
+        <span class="card-arrow">›</span>
+      </a>
+
+      <a href="ladies.html" class="card card-ladies">
+        <div class="card-header">
+          <div>
+            <div class="card-label">Ladies'</div>
+            <div class="card-title">AI TOKYO hair</div>
+          </div>
+        </div>
+        <div class="card-desc">レディースカラー・パーマの投稿文を作成</div>
+        <span class="card-arrow">›</span>
+      </a>
+    </div>
+
+    <div class="footer">© Salon Post Tool — All rights reserved</div>
+  </div>
+</body>
+</html>
