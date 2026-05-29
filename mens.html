@@ -62,11 +62,11 @@ const wordBank = {
 
 const templates = {
   styleName: [
-    "波巻きツイストスパイラル/リバースセンターパート/",
-    "MEN'S/ニュアンスパーマ/ニュアンスウルフ/"
+    "波巻きツイストスパイラル/リバースセンターパート/○○○○",
+    "MEN'S/ニュアンスパーマ/ニュアンスウルフ/○○○○"
   ],
-  comment: "men's/メンズ/メンズパーマ/メンズカット/メンズカラー/学割U24/軽めマッシュ 波巻きスパイラル フェザーカット メッシュパーマ ナチュラルツーブロック ナチュラルアップバング 縦落ちシャドウパーマ コームツイスト サンウォンヘア フェザーパーマ",
-  menu: "波巻きスパイラルパーマ 縦落ちパーマ 縦落ちツイスパ ハーフアップバング フレンチクロップ"
+  comment: "○○○○/men's/メンズ/メンズパーマ/メンズカット/メンズカラー/学割U24/ツイストマッシュ クルーカット ラフパーマ シースルーラウンドマッシュ スイングショート ナードショート 縦落ちサーフカール センターパート ツーブロック シースルーマッシュ",
+  menu: "○○○○/刈り上げショート センターパートウルフ ショートセンターパート カルマヘア サーフカールパーマ"
 };
 
 const limits = { styleName: 30, comment: 120, menu: 50, hashtags: 20 };
@@ -178,30 +178,33 @@ function render() {
         <p class="text-xs text-zinc-500 font-bold">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('styleName', 0)"
           class="w-full text-left px-3 py-2 bg-zinc-800 text-zinc-300 text-xs rounded-lg border border-zinc-700">
-          ①波巻きツイストスパイラル/リバースセンターパート/○○
+          ①波巻きツイストスパイラル/リバースセンターパート/○○○○
         </button>
         <button onclick="applyTemplate('styleName', 1)"
           class="w-full text-left px-3 py-2 bg-zinc-800 text-zinc-300 text-xs rounded-lg border border-zinc-700">
-          ②MEN'S/ニュアンスパーマ/ニュアンスウルフ/○○
+          ②MEN'S/ニュアンスパーマ/ニュアンスウルフ/○○○○
         </button>
+        <p class="text-[10px] text-zinc-500">※○○○○にエリア名を入力してください</p>
       </div>`;
   } else if (af === "comment") {
     templateHtml = `
-      <div class="mb-3">
+      <div class="mb-3 space-y-1.5">
         <p class="text-xs text-zinc-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('comment')"
           class="w-full text-left px-3 py-2 bg-zinc-800 text-zinc-300 text-xs rounded-lg border border-zinc-700 leading-relaxed">
-          men's/メンズ/メンズパーマ/メンズカット...（120文字テンプレ）
+          ○○○○/men's/メンズ/メンズパーマ/メンズカット/メンズカラー/学割U24/ツイストマッシュ クルーカット ラフパーマ...
         </button>
+        <p class="text-[10px] text-zinc-500">※○○○○にエリア名を入力してください</p>
       </div>`;
   } else if (af === "menu") {
     templateHtml = `
-      <div class="mb-3">
+      <div class="mb-3 space-y-1.5">
         <p class="text-xs text-zinc-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('menu')"
           class="w-full text-left px-3 py-2 bg-zinc-800 text-zinc-300 text-xs rounded-lg border border-zinc-700">
-          波巻きスパイラルパーマ 縦落ちパーマ 縦落ちツイスパ...
+          ○○○○/刈り上げショート センターパートウルフ ショートセンターパート カルマヘア サーフカールパーマ
         </button>
+        <p class="text-[10px] text-zinc-500">※○○○○にエリア名を入力してください</p>
       </div>`;
   }
 

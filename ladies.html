@@ -62,15 +62,17 @@ const limits = { styleName: 30, comment: 120, menu: 50, hashtags: 20 };
 
 const templates = {
   styleName: [
-    "ミルクティーブロンド/ダークブルー/デジタルパーマ/",
-    "ワンホンレイヤー/ミルクティーブロンド/ダークブルー/"
+    "ミルクティーブロンド/ダークブルー/デジタルパーマ/○○○○",
+    "ワンホンレイヤー/ミルクティーブロンド/ダークブルー/○○○○"
   ],
-  comment: "くびれレイヤーボブ あみたらし ハンサムショートウルフ 逆アンブレラカラー くびれレイヤー 韓国巻き ハッシュレイヤー ダークラベンダー グレージュブラウン 結べるレイヤーカット ラテグレージュ ミルクグレージュ ミルクティーピンクベージュ"
+  comment: "○○○○/ワンレン ハーフツインテール 地毛ハイライト ハッシュカットボブ ひし形レイヤーボブ 12トーン 三毛猫カラー 淡いピンク アレンジリボン 一つ結び スカンクヘア ピンク ハッシュカット くびれショート ヨシンモリ ベリーショート フレンチバング",
+  menu: "○○○○/ウルフパーマ ダークブルー ゆるふわボブ ひし形ショートボブ ピクシーカット クラゲカット"
 };
 
 function applyTemplate(type, index) {
   if (type === "styleName") state.styleName = templates.styleName[index].slice(0, limits.styleName);
   else if (type === "comment") state.comment = templates.comment.slice(0, limits.comment);
+  else if (type === "menu") state.menu = templates.menu.slice(0, limits.menu);
   render();
 }
 
@@ -193,22 +195,33 @@ function render() {
         <p class="text-xs text-stone-500 font-bold">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('styleName', 0)"
           class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
-          ①ミルクティーブロンド/ダークブルー/デジタルパーマ/○○
+          ①ミルクティーブロンド/ダークブルー/デジタルパーマ/○○○○
         </button>
         <button onclick="applyTemplate('styleName', 1)"
           class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
-          ②ワンホンレイヤー/ミルクティーブロンド/ダークブルー/○○
+          ②ワンホンレイヤー/ミルクティーブロンド/ダークブルー/○○○○
         </button>
-        <p class="text-[10px] text-stone-400">※○○にエリア名を入力してください</p>
+        <p class="text-[10px] text-stone-400">※○○○○にエリア名を入力してください</p>
       </div>`;
   } else if (af === "comment") {
     templateHtml = `
-      <div class="mb-3">
+      <div class="mb-3 space-y-1.5">
         <p class="text-xs text-stone-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('comment')"
           class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
-          くびれレイヤーボブ あみたらし ハンサムショートウルフ 逆アンブレラカラー...（120文字テンプレ）
+          ○○○○/ワンレン ハーフツインテール 地毛ハイライト ハッシュカットボブ ひし形レイヤーボブ...
         </button>
+        <p class="text-[10px] text-stone-400">※○○○○にエリア名を入力してください</p>
+      </div>`;
+  } else if (af === "menu") {
+    templateHtml = `
+      <div class="mb-3 space-y-1.5">
+        <p class="text-xs text-stone-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
+        <button onclick="applyTemplate('menu')"
+          class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
+          ○○○○/ウルフパーマ ダークブルー ゆるふわボブ ひし形ショートボブ ピクシーカット クラゲカット
+        </button>
+        <p class="text-[10px] text-stone-400">※○○○○にエリア名を入力してください</p>
       </div>`;
   }
 
