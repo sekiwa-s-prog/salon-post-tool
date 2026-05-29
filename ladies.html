@@ -134,6 +134,13 @@ function copyAll() {
   copyToClipboard(parts.join("\n\n"), "all");
 }
 
+function copyCurrent() {
+  const af = state.activeField;
+  const text = af === "hashtags" ? state.hashtags.join('\n') : state[af];
+  if (!text) return;
+  copyToClipboard(text, af);
+}
+
 function resetAll() {
   if (confirm("全ての入力をリセットしますか？")) {
     state.styleName = ""; state.comment = ""; state.menu = "";
@@ -300,7 +307,7 @@ function render() {
             ${templateHtml}
             ${activeAreaHtml}
           </div>
-          <button onclick="copyToClipboard('${escapeHtml(copyText)}', '${af}')"
+          <button onclick="copyCurrent()"
             ${!canCopy ? 'disabled' : ''}
             class="w-full py-3.5 ${canCopy ? 'bg-stone-900' : 'bg-stone-300'} text-white text-sm font-bold transition-all active:scale-[0.99]">
             ${isCopying ? '✓ コピー完了！' : '📋 コピーする'}
