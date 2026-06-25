@@ -24,6 +24,10 @@ const wordBank = {
     "ウルフボブ", "ウルフカット", "レイヤーボブ", "レイヤー",
     "ミディアムレイヤー", "シャギー"
   ],
+  "🔥流行ワード": [
+    "くびれミディ", "くびれレイヤー", "カチモリ", "ダークブルー",
+    "クラゲカット", "盛り髪", "サイドポニーテール", "グレーヘアー"
+  ],
   "エリア": ["渋谷", "渋谷美容室", "名古屋", "名古屋美容室"],
   "カット系(2026春トレンド)": [
     "レイヤーボブ", "ハッシュカット",
@@ -62,11 +66,11 @@ const limits = { styleName: 30, comment: 120, menu: 50, hashtags: 20 };
 
 const templates = {
   styleName: [
-    "ミルクティーブロンド/ダークブルー/デジタルパーマ/○○○○",
-    "ワンホンレイヤー/ミルクティーブロンド/ダークブルー/○○○○"
+    "ダークパープル/ナチュラルショート/ミルクブラウン/夏/○○○○",
+    "ダークパープル/ナチュラルショート/夏のヘアアレンジ/○○○○"
   ],
-  comment: "○○○○/ワンレン ハーフツインテール 地毛ハイライト ハッシュカットボブ ひし形レイヤーボブ 12トーン 三毛猫カラー 淡いピンク アレンジリボン 一つ結び スカンクヘア ピンク ハッシュカット くびれショート ヨシンモリ ベリーショート フレンチバング",
-  menu: "○○○○/ウルフパーマ ダークブルー ゆるふわボブ ひし形ショートボブ ピクシーカット クラゲカット"
+  comment: "○○○○/グレーヘアー メテオストレート ひし形レイヤーボブ ローライトカラー グレーヘア ピンクメッシュ ハッシュレイヤーボブ りんごちゃんヘア ハイポニーテール ショートボブ ミルクティーベージュ オリーブベージュ シースルー サイドポニー",
+  menu: "○○○○/くびれミディ くびれレイヤー カチモリ ダークブルー クラゲカット 盛り髪 サイドポニーテール"
 };
 
 function applyTemplate(type, index) {
@@ -202,11 +206,11 @@ function render() {
         <p class="text-xs text-stone-500 font-bold">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('styleName', 0)"
           class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
-          ①ミルクティーブロンド/ダークブルー/デジタルパーマ/○○○○
+          ①ダークパープル/ナチュラルショート/ミルクブラウン/夏/○○○○
         </button>
         <button onclick="applyTemplate('styleName', 1)"
           class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
-          ②ワンホンレイヤー/ミルクティーブロンド/ダークブルー/○○○○
+          ②ダークパープル/ナチュラルショート/夏のヘアアレンジ/○○○○
         </button>
         <p class="text-[10px] text-stone-400">※○○○○にエリア名を入力してください</p>
       </div>`;
@@ -216,7 +220,7 @@ function render() {
         <p class="text-xs text-stone-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('comment')"
           class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
-          ○○○○/ワンレン ハーフツインテール 地毛ハイライト ハッシュカットボブ ひし形レイヤーボブ...
+          ○○○○/グレーヘアー メテオストレート ひし形レイヤーボブ ローライトカラー グレーヘア...
         </button>
         <p class="text-[10px] text-stone-400">※○○○○にエリア名を入力してください</p>
       </div>`;
@@ -226,7 +230,7 @@ function render() {
         <p class="text-xs text-stone-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('menu')"
           class="w-full text-left px-3 py-2 bg-amber-50 hover:bg-amber-100 text-stone-800 text-xs rounded-lg border border-amber-200 leading-relaxed">
-          ○○○○/ウルフパーマ ダークブルー ゆるふわボブ ひし形ショートボブ ピクシーカット クラゲカット
+          ○○○○/くびれミディ くびれレイヤー カチモリ ダークブルー クラゲカット 盛り髪 サイドポニーテール
         </button>
         <p class="text-[10px] text-stone-400">※○○○○にエリア名を入力してください</p>
       </div>`;

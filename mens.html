@@ -28,6 +28,11 @@ const wordBank = {
     "ハイライト", "グランジ", "サーフカール",
     "波巻きツイストシャドウパーマ×ラウンドマッシュ"
   ],
+  "🔥流行ワード": [
+    "ルーズパーマ", "ショートセンターパート", "ローフェード",
+    "サーフカールパーマ", "スリックバック", "クロップフェード",
+    "ポンパ", "フェード坊主"
+  ],
   "エリア": [
     "渋谷", "渋谷メンズ", "名古屋", "名古屋メンズ",
     "横浜", "横浜メンズ", "池袋", "池袋メンズ",
@@ -62,11 +67,11 @@ const wordBank = {
 
 const templates = {
   styleName: [
-    "波巻きツイストスパイラル/リバースセンターパート/○○○○",
-    "MEN'S/ニュアンスパーマ/ニュアンスウルフ/○○○○"
+    "リバースセンターパート/ニュアンスパーマ/ダウンバング/○○○",
+    "リバースセンターパート/ニュアンスウルフ/ダウンバング/○○○"
   ],
-  comment: "○○○○/men's/メンズ/メンズパーマ/メンズカット/メンズカラー/学割U24/ツイストマッシュ クルーカット ラフパーマ シースルーラウンドマッシュ スイングショート ナードショート 縦落ちサーフカール センターパート ツーブロック シースルーマッシュ",
-  menu: "○○○○/刈り上げショート センターパートウルフ ショートセンターパート カルマヘア サーフカールパーマ"
+  comment: "○○○○/men's/メンズ/メンズパーマ/メンズカット/メンズカラー/学割U24/クロップフェード フェード 韓国風マッシュ ツーブロックセンターパート クリームパーマ 毛流れマッシュ ウォーリアカット 韓国風コンマヘア 韓国風ナチュラルマッシュ",
+  menu: "○○○○/ルーズパーマ ショートセンターパート ローフェード サーフカールパーマ スリックバック ポンパ"
 };
 
 const limits = { styleName: 30, comment: 120, menu: 50, hashtags: 20 };
@@ -185,13 +190,13 @@ function render() {
         <p class="text-xs text-zinc-500 font-bold">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('styleName', 0)"
           class="w-full text-left px-3 py-2 bg-zinc-800 text-zinc-300 text-xs rounded-lg border border-zinc-700">
-          ①波巻きツイストスパイラル/リバースセンターパート/○○○○
+          ①リバースセンターパート/ニュアンスパーマ/ダウンバング/○○○
         </button>
         <button onclick="applyTemplate('styleName', 1)"
           class="w-full text-left px-3 py-2 bg-zinc-800 text-zinc-300 text-xs rounded-lg border border-zinc-700">
-          ②MEN'S/ニュアンスパーマ/ニュアンスウルフ/○○○○
+          ②リバースセンターパート/ニュアンスウルフ/ダウンバング/○○○
         </button>
-        <p class="text-[10px] text-zinc-500">※○○○○にエリア名を入力してください</p>
+        <p class="text-[10px] text-zinc-500">※○○○にエリア名を入力してください</p>
       </div>`;
   } else if (af === "comment") {
     templateHtml = `
@@ -199,7 +204,7 @@ function render() {
         <p class="text-xs text-zinc-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('comment')"
           class="w-full text-left px-3 py-2 bg-zinc-800 text-zinc-300 text-xs rounded-lg border border-zinc-700 leading-relaxed">
-          ○○○○/men's/メンズ/メンズパーマ/メンズカット/メンズカラー/学割U24/ツイストマッシュ クルーカット ラフパーマ...
+          ○○○○/men's/メンズ/メンズパーマ/メンズカット/メンズカラー/学割U24/クロップフェード フェード 韓国風マッシュ...
         </button>
         <p class="text-[10px] text-zinc-500">※○○○○にエリア名を入力してください</p>
       </div>`;
@@ -209,7 +214,7 @@ function render() {
         <p class="text-xs text-zinc-500 font-bold mb-1.5">📋 テンプレ（タップで挿入）</p>
         <button onclick="applyTemplate('menu')"
           class="w-full text-left px-3 py-2 bg-zinc-800 text-zinc-300 text-xs rounded-lg border border-zinc-700">
-          ○○○○/刈り上げショート センターパートウルフ ショートセンターパート カルマヘア サーフカールパーマ
+          ○○○○/ルーズパーマ ショートセンターパート ローフェード サーフカールパーマ スリックバック ポンパ
         </button>
         <p class="text-[10px] text-zinc-500">※○○○○にエリア名を入力してください</p>
       </div>`;
